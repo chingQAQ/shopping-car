@@ -9,11 +9,22 @@
       },
     },
     computed: {
-      ...mapGetters(['isCar']),
+      ...mapGetters(['isInCart']),
+      buttonStatus: function(args) {
+        return {
+          'market-button': true,
+          'market-button--disabled': this.isInCart(args.marketData),
+        }
+      },
+      buttonTextStatus: function(args) {
+        return this.isInCart(args.marketData)
+          ? '已加入購物車'
+          : '加入購物車'
+      }
     },
     methods: {
-      addToCarList(product) {
-        this.$store.dispatch('callMarketCar', product)
+      addToCartList(product) {
+        this.$store.dispatch('callMarketCart', product)
       }
     }
   }
@@ -33,10 +44,7 @@
         <strong>{{ marketData.price }} | USD</strong>
       </div>
     </div>
-    <button :class="[{
-      'market-button': true,
-      'market-button--disabled': isCar,
-    }]" @click="addToCarList(marketData)">加入購物車</button>
+    <button :class="buttonStatus" @click="addToCartList(marketData)">{{ buttonTextStatus }}</button>
   </li>
 </template>
 
@@ -73,7 +81,7 @@
 
   .market-item:hover {
     transition: 0.2s transform;
-    transform: scale(1.025);
+    transform: scale(1.01);
   }
 
   .market-price {

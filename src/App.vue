@@ -1,20 +1,25 @@
 <script>
-  import MarketList from "@/components/MarketList"
-  import MarketCar from "@/components/MarketCar"
+  import MarketCart from "@/components/MarketCart"
   export default {
     name: 'App',
     components: {
-      MarketList,
-      MarketCar,
+      MarketCart,
     }
   }
 </script>
 
 <template>
   <div id="app">
-    <h1>隨便賣</h1>
-    <Market-list />
-    <Market-car />
+    <h1>隨便拉 哪次不隨便</h1>
+    <router-link :to="{path: '/',}">Home</router-link>
+    |
+    <router-link :to="{path: '/shop',}">Shopping</router-link>
+
+    <router-link :to="{path: '/cart',}" v-slot="{ href, }">
+      <Market-cart :href="href"/>
+    </router-link>
+
+    <router-view></router-view>
   </div>
 </template>
 
