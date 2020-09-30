@@ -35,6 +35,8 @@
 <style>
 body {
   position: relative;
+  max-width: 600px;
+  margin: 0 auto;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
