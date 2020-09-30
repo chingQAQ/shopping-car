@@ -24,13 +24,23 @@ export const store = new Vuex.Store({
     },
 
     upDateCartList: (state, cartData) => {
-      state.cartList = [...state.cartList, cartData]
+      const isInCart = state.cartList.indexOf(cartData) === -1
+      if (isInCart) {
+        state.cartList = [...state.cartList, cartData]
+      }
+      localStorage.setItem('cart', JSON.stringify(state.cartList))
     },
 
     cancelInCartList: (state, cartData) => {
       const cancelTarget = state.cartList.indexOf(cartData)
       if (cancelTarget > -1) state.cartList.splice(cancelTarget, 1)
-    }
+      localStorage.removeItem('cart')
+      localStorage.setItem('cart', JSON.stringify(state.cartList))
+    },
+
+    localCartToCartList: (state, cartData) => {
+      state.cartList = cartData
+    },
   },
   actions: {
     callMarketApi: ({ commit }) => {
@@ -49,6 +59,10 @@ export const store = new Vuex.Store({
 
     cancelProduct: ({ commit }, params) => {
       commit('cancelInCartList', params)
+    },
+
+    callLocalCart: ({ commit }, params) => {
+      commit('localCartToCartList', params)
     },
   }
 })

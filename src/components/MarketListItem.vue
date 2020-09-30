@@ -1,4 +1,5 @@
 ﻿<script>
+  // import ProductDetail from '@/components/ProductDetail'
   import { mapGetters } from 'vuex'
   export default {
     name: 'MarketItem',
@@ -26,7 +27,7 @@
       addToCartList(product) {
         this.$store.dispatch('callMarketCart', product)
       }
-    }
+    },
   }
 </script>
 
@@ -39,12 +40,21 @@
         </div>
       </div>
       <h3>{{ marketData.title }}</h3>
-      <p>{{ marketData.description }}</p>
       <div class="market-price">
         <strong>{{ marketData.price }} | USD</strong>
       </div>
     </div>
-    <button :class="buttonStatus" @click="addToCartList(marketData)">{{ buttonTextStatus }}</button>
+    <div style="display: flex;">
+      <router-link
+        :to="{
+          name: 'product',
+          params: marketData,
+          query: marketData,
+        }"
+        class="market-button"
+        style="line-height: 40px; background-color: #fff; color: #000;">查看詳情</router-link>
+      <button :class="buttonStatus" @click="addToCartList(marketData)">{{ buttonTextStatus }}</button>
+    </div>
   </li>
 </template>
 
@@ -81,7 +91,7 @@
 
   .market-item:hover {
     transition: 0.2s transform;
-    transform: scale(1.01);
+    transform: scale(1.025);
   }
 
   .market-price {

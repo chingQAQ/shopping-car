@@ -4,7 +4,16 @@
     name: 'App',
     components: {
       MarketCart,
-    }
+    },
+    mounted() {
+      const localCart = {
+        isNull: localStorage.getItem('cart') === null,
+        item: localStorage.getItem('cart'),
+      }
+      if (!localCart.isNull) {
+        this.$store.dispatch('callLocalCart', JSON.parse(localCart.item))
+      }
+    },
   }
 </script>
 
@@ -16,7 +25,7 @@
     <router-link :to="{path: '/shop',}">Shopping</router-link>
 
     <router-link :to="{path: '/cart',}" v-slot="{ href, }">
-      <Market-cart :href="href"/>
+      <Market-cart :href="href" />
     </router-link>
 
     <router-view></router-view>

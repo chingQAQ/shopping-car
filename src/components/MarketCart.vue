@@ -22,7 +22,7 @@ export default {
       </symbol>
       <use xlink:href="#icon-cart"></use>
     </svg>
-    <div class="cart-amount" v-show="getCartListLength > 0">
+    <div class="cart-amount">
       {{ getCartListLength }}
     </div>
   </a>
